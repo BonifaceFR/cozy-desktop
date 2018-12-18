@@ -3,6 +3,7 @@ module Window.Updater exposing (Model, Msg(..), humanReadableDiskValue, init, su
 import Data.Progress exposing (Progress)
 import Html exposing (..)
 import Html.Attributes exposing (..)
+import Icons
 import Locale exposing (Helpers)
 import Ports
 import View.ProgressBar as ProgressBar
@@ -77,7 +78,8 @@ view helpers model =
                 ]
 
             ( Nothing, Just progress ) ->
-                [ h1 [] [ text (helpers.t "Updater Downloading") ]
+                [ div [] [ figure [] [ Icons.logo ] ]
+                , h1 [] [ text (helpers.t "Updater Downloading") ]
                 , div [ class "spacer" ]
                     [ ProgressBar.view (progress.transferred / progress.total)
                     , div [ class "progress-indicator" ]
@@ -93,7 +95,8 @@ view helpers model =
                 ]
 
             ( Nothing, Nothing ) ->
-                [ h1 []
+                [ div [] [ figure [] [ Icons.logo ] ]
+                , h1 []
                     [ text (helpers.t "Updater Downloading") ]
                 , div [ class "spacer" ]
                     [ div [ class "progress indeterminate" ]
