@@ -78,9 +78,7 @@ view helpers model =
                 ]
 
             ( Nothing, Just progress ) ->
-                [ div [] [ figure [] [ Icons.logo ] ]
-                , h1 [] [ text (helpers.t "Updater Downloading") ]
-                , div [ class "spacer" ]
+                progressView helpers
                     [ ProgressBar.view (progress.transferred / progress.total)
                     , div [ class "progress-indicator" ]
                         [ text
@@ -90,22 +88,28 @@ view helpers model =
                             )
                         ]
                     ]
-                , p []
-                    [ text (helpers.t "Updater Please wait") ]
-                ]
 
             ( Nothing, Nothing ) ->
-                [ div [] [ figure [] [ Icons.logo ] ]
-                , h1 []
-                    [ text (helpers.t "Updater Downloading") ]
-                , div [ class "spacer" ]
+                progressView helpers
                     [ div [ class "progress indeterminate" ]
                         [ div
                             [ class "progress-inner" ]
                             []
                         ]
                     ]
-                , p []
-                    [ text (helpers.t "Updater Please wait") ]
-                ]
         )
+
+
+progressView : Helpers -> List (Html Msg) -> List (Html Msg)
+progressView helpers localProgressBar =
+    [ h1 []
+        [ figure [ class "logo" ] [ Icons.logo ]
+        , text (helpers.t "Updater Downloading")
+        , br [] []
+        , text (helpers.t "Updater Downloading Second Line")
+        ]
+    , div [ class "spacer" ]
+        localProgressBar
+    , p []
+        [ text (helpers.t "Updater Please wait") ]
+    ]
